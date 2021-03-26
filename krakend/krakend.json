@@ -2,7 +2,7 @@
   "version": 2,
   "timeout": "3000ms",
   "cache_ttl": "300s",
-  "host": [ "http://fake_api:8080" ],
+  "host": [ "http://fake_api:8080", "http://web:3000" ],
   "extra_config": {
     "github_com/devopsfaith/krakend-metrics": {
       "listen_address":":8090"
@@ -180,6 +180,22 @@
           "keys-to-sign": ["access_token", "refresh_token"],
           "jwk-url": "http://fake_api:8080/jwk/symmetric.json",
           "disable_jwk_security": true
+        }
+      }
+    },
+    {
+      "endpoint": "/json-validation",
+      "backend": [
+        {
+          "host": [ "http://web:3000" ],
+          "url_pattern": "/post-example"
+        }
+      ],
+      "method": "POST",
+      "output_encoding": "json",
+      "extra_config":{
+        "github.com/devopsfaith/krakend-jsonschema": {
+          "type": "object"
         }
       }
     }

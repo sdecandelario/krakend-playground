@@ -37,5 +37,9 @@ app.get('/api/private', checkJwt, checkScopes, function(req, res) {
   res.json({ message: "Hello from a private endpoint! You need to be authenticated and have a scope of read:messages to see this." });
 });
 
+app.post('/post-example', function(req, res) {
+  res.json({ message: "Test response" });
+});
+
 app.listen(3001);
 console.log('Listening on http://localhost:3001');
